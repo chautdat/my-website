@@ -1,0 +1,228 @@
+/* Reset & layout */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #ffffff;
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+/* Container chính */
+.birthday-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #ffe0ec;
+  border-radius: 16px;
+  padding: 60px 20px 100px; /* thêm khoảng dưới để cua không đè nội dung */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Tiêu đề chính */
+.main-title {
+  font-size: 2.5em;
+  color: #d63384;
+  margin-bottom: 40px;
+  text-shadow: 1px 1px #fff0f5;
+}
+
+/* Flex hàng cho 2 người */
+.people {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+/* Mỗi người */
+.person {
+  background-color: #fce4ec;
+  padding: 20px;
+  border-radius: 16px;
+  width: 250px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.person h2 {
+  font-size: 1.8em;
+  color: #c2185b;
+  margin-top: 15px;
+}
+
+.person p {
+  font-size: 1.2em;
+  color: #555;
+  margin-top: 5px;
+}
+
+/* Ảnh người */
+.birthday-image {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
+
+.birthday-image:hover {
+  transform: scale(1.05);
+}
+
+/* Vẫn giữ phần body và birthday-container như bạn đang có */
+
+/* Thêm hoặc cập nhật đoạn này để căn hình "cua" */
+.birthday-container {
+  position: relative; /* quan trọng để vị trí cua gắn theo container này */
+  max-width: 900px;
+  margin: 0 auto;
+  background: #ffe0ec;
+  border-radius: 16px;
+  padding: 60px 20px 120px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+.crab {
+  position: absolute;
+  bottom: 80px;
+  width: 200px; /* tăng kích thước ở đây */
+  opacity: 0.95;
+  border-radius: 16px;
+}
+
+.crab:first-of-type {
+  left: 10px;
+}
+
+.crab:last-of-type {
+  right: 10px;
+  transform: scaleX(-1); /* lật hình cho đối xứng */
+}
+/* Nút bấm dễ thương */
+.birthday-button {
+  display: block;
+  margin: 40px auto;
+  padding: 15px 30px;
+  font-size: 1.2em;
+  background-color: #ff8fab;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.birthday-button:hover {
+  background-color: #ff6799;
+  transform: scale(1.05);
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  50% { transform: rotate(-5deg); }
+  75% { transform: rotate(3deg); }
+}
+
+.crab {
+  animation: wiggle 2s infinite ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(-2px); }
+}
+
+.birthday-button {
+  animation: shake 1.2s infinite ease-in-out;
+}
+
+.firework {
+  position: absolute;
+  background-color: #ff4081;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: explode 2s ease-out forwards;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@keyframes explode {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+#fireworks-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  background: white; /* hoặc transparent nếu muốn */
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 20px 10px;
+  }
+
+  .birthday-container {
+    padding: 40px 10px 100px;
+  }
+
+  .main-title {
+    font-size: 1.8em;
+  }
+
+  .people {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .person {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .birthday-image {
+    height: auto;
+    max-height: 300px;
+  }
+
+  .birthday-button {
+    font-size: 1em;
+    padding: 12px 20px;
+    margin-top: 30px;
+  }
+
+  .crab {
+    width: 100px;
+    bottom: 60px;
+  }
+
+  .crab:first-of-type {
+    left: 20px;
+  }
+
+  .crab:last-of-type {
+    right: 20px;
+  }
+}
