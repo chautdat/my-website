@@ -24,7 +24,6 @@ window.addEventListener("DOMContentLoaded", () => {
     const y = random(50, canvas.height / 2);
     const baseHue = Math.floor(Math.random() * 360);
 
-    // 💥 Tạo nhiều hơn và rực rỡ hơn
     for (let i = 0; i < 80; i++) {
       const angle = Math.random() * 2 * Math.PI;
       const speed = Math.random() * 6 + 2;
@@ -43,7 +42,6 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   function draw() {
-    // 🌟 Nền trắng với hiệu ứng mờ trail
     ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -68,7 +66,74 @@ window.addEventListener("DOMContentLoaded", () => {
     requestAnimationFrame(draw);
   }
 
-  // ⏱ Pháo nổ nhiều hơn (liên tục)
   setInterval(createFirework, 350);
   draw();
+
+  // ======== FLIP CARD NẾU CÓ NÚT ========
+  const flipBtn = document.getElementById("flip-button");
+  const card = document.getElementById("flip-card");
+
+  if (flipBtn && card) {
+    flipBtn.addEventListener("click", () => {
+      card.classList.toggle("flipped");
+    });
+  }
 });
+
+const wishes = [
+  "Chúc Bell & Renny luôn cười tươi 🌸",
+  "Mãi hạnh phúc với con đường mình chọn nha 💕",
+  "Sinh nhật thật đáng nhớ nhé 🎂",
+  "Love you 💖",
+  "Tuổi mới nhiều may mắn ✨",
+  "Bạn thật tuyệt vời 😘"
+];
+
+function createBalloon() {
+  const balloon = document.createElement("div");
+  balloon.className = "balloon";
+  const left = Math.random() * (window.innerWidth - 60);
+  balloon.style.left = left + "px";
+  balloon.style.setProperty('--color', `hsl(${Math.random() * 360}, 80%, 70%)`);
+
+  document.body.appendChild(balloon);
+
+  let posY = 0; // Bắt đầu translateY từ 0 (dưới cùng)
+  const speed = 0.5 + Math.random() * 1.5;
+  const drift = (Math.random() - 0.5) * 1.5;
+
+  function rise() {
+    posY -= speed;
+    const translateX = Math.sin(posY / 20) * 10 + drift * posY / 50;
+    balloon.style.transform = `translateY(${posY}px) translateX(${translateX}px)`;
+
+    if (posY < -window.innerHeight - 100) {
+      balloon.remove();
+    } else {
+      requestAnimationFrame(rise);
+    }
+  }
+  rise();
+
+  // Click hiện lời chúc
+  balloon.addEventListener("click", () => {
+    const wish = document.createElement("div");
+    wish.className = "wish";
+    wish.textContent = wishes[Math.floor(Math.random() * wishes.length)];
+    document.body.appendChild(wish);
+
+    // Đặt vị trí lời chúc theo chính xác vị trí của balloon
+    const balloonRect = balloon.getBoundingClientRect();
+    wish.style.left = (balloonRect.left + balloonRect.width / 2) + "px";
+    wish.style.top = (balloonRect.top + balloonRect.height / 2) + "px";
+
+    setTimeout(() => wish.remove(), 2000);
+
+    balloon.style.transform += " scale(0)";
+    balloon.style.opacity = "0";
+    setTimeout(() => balloon.remove(), 300);
+  });
+}
+
+// Tạo bong bóng liên tục, giãn mật độ để chạy mượt
+setInterval(createBalloon, 1000);
